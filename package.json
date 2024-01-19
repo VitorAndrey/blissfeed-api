@@ -1,0 +1,44 @@
+{
+  "engines": {
+    "node": "18"
+  },
+  "name": "blissfeed-api",
+  "version": "1.0.0",
+  "description": "DATABASE_URL=postgresql://postgres:H6TzFcJY2ys7q5JL@db.vkedwwfymypguvagynve.supabase.co:5432/postgres",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir build",
+    "start": "node build/server.js",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.8.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.2",
+    "fastify": "^4.25.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vitest/coverage-v8": "^1.2.1",
+    "@vitest/ui": "^1.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prisma": "^5.8.1",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vite-tsconfig-paths": "^4.3.1",
+    "vitest": "^1.2.1"
+  }
+}
