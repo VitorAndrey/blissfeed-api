@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,11 +8,130 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
+  id            String    @id @default(cuid())
   name          String
-  email         String   @unique
+  email         String    @unique
   password_hash String
-  created_at    DateTime @default(now())
-  
+  profile_img   String?
+  phone_number  String?
+  birth_date    DateTime?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  posts         Post[]
+  conversations Conversation[]
+  Comment       Comment[]
+
   @@map("users")
+}
+
+model Conversation {
+  id       String    @id @default(cuid())
+  user_id  String
+  messages Message[]
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@map("conversations")
+}
+
+model Message {
+  id              String   @id @default(cuid())
+  content         String
+  sent_by_user    Boolean
+  timestamp       DateTime @default(now())
+  conversation_id String
+  publishable     Boolean
+
+  conversation Conversation @relation(fields: [conversation_id], references: [id])
+
+  @@map("messages")
+}
+
+model Post {
+  id         String    @id @default(cuid())
+  content    String
+  likes      Int
+  author_id  String
+  comments   Comment[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  author User @relation(fields: [author_id], references: [id])
+
+  @@map("posts")
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  content    String
+  likes      Int
+  author_id  String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  author User @relation(fields: [author_id], references: [id])
+
+  post    Post?   @relation(fields: [post_id], references: [id])
+  post_id String?
+
+  Article   Article? @relation(fields: [articleId], references: [id])
+  articleId String?
+
+  VideoContent   VideoContent? @relation(fields: [videoContentId], references: [id])
+  videoContentId String?
+
+  AudioContent   AudioContent? @relation(fields: [audioContentId], references: [id])
+  audioContentId String?
+
+  @@map("comments")
+}
+
+enum ArticleCategory {
+  Advice
+  Informative
+  Curiosity
+}
+
+model Article {
+  id          String          @id @default(cuid())
+  author_name String
+  content     String
+  title       String
+  likes       Int
+  category    ArticleCategory
+  cover_img   String
+  created_at  DateTime        @default(now())
+
+  comments Comment[]
+
+  @@map("articles")
+}
+
+enum ContentCategory {
+  Focus
+  Relaxing
+  Enterteniment
+}
+
+model VideoContent {
+  id        String          @id @default(cuid())
+  category  ContentCategory
+  video_url String
+  cover_img String
+  likes     Int
+  comments  Comment[]
+
+  @@map("video_contents")
+}
+
+model AudioContent {
+  id        String          @id @default(cuid())
+  category  ContentCategory
+  audio_url String
+  cover_img String
+  likes     Int
+  comments  Comment[]
+
+  @@map("audio_contents")
 }
