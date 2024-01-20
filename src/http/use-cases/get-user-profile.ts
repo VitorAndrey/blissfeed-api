@@ -1,6 +1,6 @@
-import { ResourceNotFoundError } from "./errors/resource-not-found";
-import { UsersRepository } from "@/repositories/users-respository";
-import { User } from "@/types";
+import { ResourceNotFoundError } from './errors/resource-not-found';
+import { UsersRepository } from '@/repositories/users-repository';
+import { User } from '@/types';
 
 interface GetUserProfileUseCaseRequest {
   userId: string;

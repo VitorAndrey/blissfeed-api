@@ -1,7 +1,7 @@
-import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
-import { UsersRepository } from "@/repositories/users-respository";
-import { User } from "@/types";
-import { compare } from "bcryptjs";
+import { InvalidCredentialsError } from './errors/invalid-credentials-error';
+import { UsersRepository } from '@/repositories/users-repository';
+import { User } from '@/types';
+import { compare } from 'bcryptjs';
 
 interface AuthenticateUseCaseRequest {
   email: string;

@@ -1,7 +1,8 @@
-import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
-import { UsersRepository } from "@/repositories/users-respository";
-import { User } from "@/types";
-import { hash } from "bcryptjs";
+import { UserAlreadyExistsError } from './errors/user-already-exists-error';
+import { ConversationsRepository } from '@/repositories/conversations-repository';
+import { UsersRepository } from '@/repositories/users-repository';
+import { User } from '@/types';
+import { hash } from 'bcryptjs';
 
 interface RegisterUseCaseParams {
   name: string;
@@ -14,7 +15,10 @@ interface RegisterUseCaseResponse {
 }
 
 export class RegisterUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    private usersRepository: UsersRepository,
+    private conversationsRepository: ConversationsRepository,
+  ) {}
 
   async execute({
     name,
@@ -34,6 +38,8 @@ export class RegisterUseCase {
       email,
       password_hash,
     });
+
+    await this.conversationsRepository.creat(user.id);
 
     return { user };
   }

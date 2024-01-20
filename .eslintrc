@@ -11,10 +11,6 @@
   },
   "plugins": ["simple-import-sort", "@typescript-eslint"],
   "rules": {
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"],
     "simple-import-sort/imports": [
       "warn",
       {

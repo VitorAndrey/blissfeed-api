@@ -8,42 +8,39 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String
-  email         String    @unique
+  email         String        @unique
   password_hash String
-  profile_img   String?
-  phone_number  String?
+  created_at    DateTime      @default(now())
   birth_date    DateTime?
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt
-
-  posts         Post[]
-  conversations Conversation[]
+  phone_number  String?
+  profile_img   String?
+  updated_at    DateTime      @updatedAt
   Comment       Comment[]
+  conversations Conversation?
+  posts         Post[]
 
   @@map("users")
 }
 
 model Conversation {
   id       String    @id @default(cuid())
-  user_id  String
+  user_id  String    @unique
+  user     User      @relation(fields: [user_id], references: [id])
   messages Message[]
-
-  user User @relation(fields: [user_id], references: [id])
 
   @@map("conversations")
 }
 
 model Message {
-  id              String   @id @default(cuid())
+  id              String       @id @default(cuid())
   content         String
   sent_by_user    Boolean
-  timestamp       DateTime @default(now())
+  timestamp       DateTime     @default(now())
   conversation_id String
   publishable     Boolean
-
-  conversation Conversation @relation(fields: [conversation_id], references: [id])
+  conversation    Conversation @relation(fields: [conversation_id], references: [id])
 
   @@map("messages")
 }
@@ -53,44 +50,32 @@ model Post {
   content    String
   likes      Int
   author_id  String
-  comments   Comment[]
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-
-  author User @relation(fields: [author_id], references: [id])
+  comments   Comment[]
+  author     User      @relation(fields: [author_id], references: [id])
 
   @@map("posts")
 }
 
 model Comment {
-  id         String   @id @default(cuid())
-  content    String
-  likes      Int
-  author_id  String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  author User @relation(fields: [author_id], references: [id])
-
-  post    Post?   @relation(fields: [post_id], references: [id])
-  post_id String?
-
-  Article   Article? @relation(fields: [articleId], references: [id])
-  articleId String?
-
-  VideoContent   VideoContent? @relation(fields: [videoContentId], references: [id])
-  videoContentId String?
-
-  AudioContent   AudioContent? @relation(fields: [audioContentId], references: [id])
-  audioContentId String?
+  id               String        @id @default(cuid())
+  content          String
+  likes            Int
+  author_id        String
+  created_at       DateTime      @default(now())
+  updated_at       DateTime      @updatedAt
+  post_id          String?
+  article_id       String?
+  video_content_id String?
+  audio_content_id String?
+  articles         Article?      @relation(fields: [article_id], references: [id])
+  audio_contents   AudioContent? @relation(fields: [audio_content_id], references: [id])
+  author           User          @relation(fields: [author_id], references: [id])
+  post             Post?         @relation(fields: [post_id], references: [id])
+  video_contents   VideoContent? @relation(fields: [video_content_id], references: [id])
 
   @@map("comments")
-}
-
-enum ArticleCategory {
-  Advice
-  Informative
-  Curiosity
 }
 
 model Article {
@@ -102,16 +87,10 @@ model Article {
   category    ArticleCategory
   cover_img   String
   created_at  DateTime        @default(now())
-
-  comments Comment[]
+  article_url String
+  comments    Comment[]
 
   @@map("articles")
-}
-
-enum ContentCategory {
-  Focus
-  Relaxing
-  Enterteniment
 }
 
 model VideoContent {
@@ -134,4 +113,16 @@ model AudioContent {
   comments  Comment[]
 
   @@map("audio_contents")
+}
+
+enum ArticleCategory {
+  Tips
+  Informative
+  Curiosity
+}
+
+enum ContentCategory {
+  Focus
+  Relaxing
+  Enterteniment
 }

@@ -1,4 +1,4 @@
-import { CreateUser, User } from "@/types";
+import { CreateUser, User } from '@/types';
 
 export interface UsersRepository {
   create(data: CreateUser): Promise<User>;
