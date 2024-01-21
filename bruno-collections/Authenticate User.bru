@@ -5,7 +5,14 @@ meta {
 }
 
 post {
-  url: http://localhost:3333/authenticate
-  body: none
+  url: http://localhost:3333/sessions
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "email": "vitor.andreylopes@gmail.com",
+    "password": "123456"
+  }
 }

@@ -1,16 +1,19 @@
 import { UserAlreadyExistsError } from './errors/user-already-exists-error';
 import { RegisterUseCase } from './register';
-import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users';
+import { InMemoryConversationsRepository } from '@/repositories/in-memory/in-memory-conversations-repository';
+import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
 import { compare } from 'bcryptjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 let usersRepository: InMemoryUsersRepository;
+let conversationsRepository: InMemoryConversationsRepository;
 let sut: RegisterUseCase;
 
 describe('Register Use Case', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository();
-    sut = new RegisterUseCase(usersRepository);
+    conversationsRepository = new InMemoryUsersRepository();
+    sut = new RegisterUseCase(usersRepository, conversationsRepository);
   });
 
   it('should be able to register', async () => {

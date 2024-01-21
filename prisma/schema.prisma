@@ -94,23 +94,27 @@ model Article {
 }
 
 model VideoContent {
-  id        String          @id @default(cuid())
-  category  ContentCategory
-  video_url String
-  cover_img String
-  likes     Int
-  comments  Comment[]
+  id          String          @id @default(cuid())
+  category    ContentCategory
+  video_url   String
+  cover_img   String
+  likes       Int
+  title       String
+  description String
+  comments    Comment[]
 
   @@map("video_contents")
 }
 
 model AudioContent {
-  id        String          @id @default(cuid())
-  category  ContentCategory
-  audio_url String
-  cover_img String
-  likes     Int
-  comments  Comment[]
+  id          String          @id @default(cuid())
+  category    ContentCategory
+  audio_url   String
+  cover_img   String
+  likes       Int
+  title       String
+  description String?
+  comments    Comment[]
 
   @@map("audio_contents")
 }
