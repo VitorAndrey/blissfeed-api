@@ -8,8 +8,8 @@ export async function getAudios(request: FastifyRequest, reply: FastifyReply) {
   try {
     const getAudiosUseCase = makeGetAudiosUseCase();
 
-    const { GetAudios } = await getAudiosUseCase.execute();
-    getAudiosList = GetAudios;
+    const { audios } = await getAudiosUseCase.execute();
+    getAudiosList = audios;
   } catch (error) {
     if (error instanceof FailedFetchingData) {
       return reply.status(500).send({ message: error.message });

@@ -8,8 +8,8 @@ export async function getVideos(request: FastifyRequest, reply: FastifyReply) {
   try {
     const getVideosUseCase = makeGetVideosUseCase();
 
-    const { GetVideos } = await getVideosUseCase.execute();
-    getVideosList = GetVideos;
+    const { videos } = await getVideosUseCase.execute();
+    getVideosList = videos;
   } catch (error) {
     if (error instanceof FailedFetchingData) {
       return reply.status(500).send({ message: error.message });
