@@ -8,13 +8,13 @@ import {
   Prisma,
   User as PrismaUser,
   VideoContent as PrismaVideoContent,
-} from "@prisma/client";
+} from '@prisma/client';
 
 export type User = PrismaUser;
 export type CreateUser = Prisma.UserCreateInput;
 
 export type Post = PrismaPost;
-export type CreatePost = Prisma.PostCreateInput;
+export type CreatePost = Prisma.PostUncheckedCreateInput;
 
 export type Comment = PrismaComment;
 export type CreateComment = Prisma.CommentCreateInput;

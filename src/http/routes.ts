@@ -1,4 +1,5 @@
 import { authenticate } from './controllers/authenticate';
+import { createPost } from './controllers/createPost';
 import { getArticles } from './controllers/getArticles';
 import { getAudios } from './controllers/getAudio';
 import { getPosts } from './controllers/getPosts';
@@ -17,7 +18,7 @@ export async function appRoutes(app: FastifyInstance) {
 
   app.get('/posts', getPosts);
   app.get('/posts/:user_id', getPosts);
-  // app.post('/posts', createPost);
+  app.post('/posts', createPost);
 
   // app.post('/message', addMessageToConversation);
 
