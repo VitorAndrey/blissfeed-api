@@ -1,4 +1,5 @@
 import { authenticate } from './controllers/authenticate';
+import { conversation } from './controllers/conversation';
 import { createPost } from './controllers/createPost';
 import { getArticles } from './controllers/getArticles';
 import { getAudios } from './controllers/getAudio';
@@ -20,7 +21,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.get('/posts/:user_id', getPosts);
   app.post('/posts', createPost);
 
-  // app.post('/message', addMessageToConversation);
+  app.post('/conversation', conversation);
 
   app.get('/status', () => 'API IS RUNNING');
 }

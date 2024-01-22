@@ -1,0 +1,18 @@
+meta {
+  name: Conversation
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://localhost:3333/conversation
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "user_id": "123",
+    "message": "Vai se lascar!"
+  }
+}

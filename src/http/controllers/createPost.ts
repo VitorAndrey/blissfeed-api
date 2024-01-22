@@ -1,4 +1,4 @@
-import { FailedFetchingData } from '../use-cases/errors/failed-fetching-data.error';
+import { FailedCreatingData } from '../use-cases/errors/failed-creating-data.error';
 import { makeCreatePostUseCase } from '../use-cases/factories/make-create-post-use-case';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
@@ -16,7 +16,7 @@ export async function createPost(request: FastifyRequest, reply: FastifyReply) {
 
     await createPostUseCase.execute({ user_id, content });
   } catch (error) {
-    if (error instanceof FailedFetchingData) {
+    if (error instanceof FailedCreatingData) {
       return reply.status(500).send({ message: error.message });
     }
 

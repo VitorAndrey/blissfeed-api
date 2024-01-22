@@ -4,7 +4,7 @@ import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-reposi
 
 export function makeRegisterUseCase() {
   const usersRepository = new PrismaUsersRepository();
-  const conversationsRepository = new PrismaConversationsRepository(); // Certifique-se de ajustar o import conforme necessário
+  const conversationsRepository = new PrismaConversationsRepository();
 
   const registerUseCase = new RegisterUseCase(
     usersRepository,
