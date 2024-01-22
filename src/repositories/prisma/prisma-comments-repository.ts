@@ -1,11 +1,13 @@
-import { CommentsRepository } from '../comments-repository';
+import { AllData, CommentsRepository } from '../comments-repository';
 import { prisma } from '@/lib/prisma';
-import { CreateComment } from '@/types';
 
 export class PrismaCommentsRepository implements CommentsRepository {
-  async create(data: CreateComment) {
+  async create(allData: AllData) {
     const comment = await prisma.comment.create({
-      data,
+      data: {
+        ...allData.data,
+        [`${allData.content_type}_id`]: allData.content_id,
+      },
     });
 
     return comment;

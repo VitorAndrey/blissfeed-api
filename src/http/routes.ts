@@ -1,8 +1,10 @@
 import { authenticate } from './controllers/authenticate';
 import { conversation } from './controllers/conversation';
+import { createComment } from './controllers/createComment';
 import { createPost } from './controllers/createPost';
 import { getArticles } from './controllers/getArticles';
 import { getAudios } from './controllers/getAudio';
+import { getComments } from './controllers/getComments';
 import { getPosts } from './controllers/getPosts';
 import { getVideos } from './controllers/getVideos';
 import { register } from './controllers/register';
@@ -22,6 +24,9 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/posts', createPost);
 
   app.post('/conversation', conversation);
+
+  app.get('/comments/:content_id', getComments);
+  app.post('/comments', createComment);
 
   app.get('/status', () => 'API IS RUNNING');
 }

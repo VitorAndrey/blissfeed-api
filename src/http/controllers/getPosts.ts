@@ -1,5 +1,5 @@
 import { FailedFetchingData } from '../use-cases/errors/failed-fetching-data.error';
-import { makeGetPoststeUseCase } from '../use-cases/factories/make-get-posts-use-case';
+import { makeGetPostsUseCase } from '../use-cases/factories/make-get-posts-use-case';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
@@ -14,7 +14,7 @@ export async function getPosts(request: FastifyRequest, reply: FastifyReply) {
   let postsList = [];
 
   try {
-    const getPostsUseCase = makeGetPoststeUseCase();
+    const getPostsUseCase = makeGetPostsUseCase();
 
     const { posts } = await getPostsUseCase.execute(user_id ? { user_id } : {});
     postsList = posts;

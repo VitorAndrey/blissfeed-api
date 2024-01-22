@@ -17,7 +17,7 @@ export type Post = PrismaPost;
 export type CreatePost = Prisma.PostUncheckedCreateInput;
 
 export type Comment = PrismaComment;
-export type CreateComment = Prisma.CommentCreateInput;
+export type CreateComment = Prisma.CommentUncheckedCreateInput;
 
 export type Conversation = PrismaConversation;
 export type CreateConversation = Prisma.ConversationCreateInput;

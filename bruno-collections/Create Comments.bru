@@ -1,0 +1,20 @@
+meta {
+  name: Create Comments
+  type: http
+  seq: 10
+}
+
+post {
+  url: http://localhost:3333/comments
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "user_id": "clrniusuy0009ofhzbij15090",
+    "content": "Que legal!",
+    "content_id": "clrnkhvdu000108l8d1984y5y",
+    "content_type": "post"
+  }
+}
