@@ -1,6 +1,7 @@
 import { InvalidCredentialsError } from './errors/invalid-credentials-error';
+import { ConversationsRepository } from '@/repositories/conversations-repository';
 import { UsersRepository } from '@/repositories/users-repository';
-import { User } from '@/types';
+import { Conversation, User } from '@/types';
 import { compare } from 'bcryptjs';
 
 interface AuthenticateUseCaseRequest {
@@ -10,10 +11,14 @@ interface AuthenticateUseCaseRequest {
 
 interface AuthenticateUseCaseResponse {
   user: User;
+  conversation: Conversation;
 }
 
 export class AuthenticateUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    private usersRepository: UsersRepository,
+    private conversationsRepository: ConversationsRepository,
+  ) {}
 
   async execute({
     email,
@@ -24,8 +29,15 @@ export class AuthenticateUseCase {
     if (!user) {
       throw new InvalidCredentialsError();
     }
-
     const doesPasswordMatches = await compare(password, user.password_hash);
+
+    const conversation = await this.conversationsRepository.findByUserId(
+      user.id,
+    );
+
+    if (!conversation) {
+      throw new InvalidCredentialsError();
+    }
 
     if (!doesPasswordMatches) {
       throw new InvalidCredentialsError();
@@ -33,6 +45,7 @@ export class AuthenticateUseCase {
 
     return {
       user,
+      conversation,
     };
   }
 }
