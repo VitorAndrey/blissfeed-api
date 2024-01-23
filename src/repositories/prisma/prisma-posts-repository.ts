@@ -12,7 +12,16 @@ export class PrismaPostsRepository implements PostsRepository {
   }
 
   async findAll() {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+            profile_img: true,
+          },
+        },
+      },
+    });
 
     return posts;
   }
@@ -21,6 +30,14 @@ export class PrismaPostsRepository implements PostsRepository {
     const userPosts = await prisma.post.findMany({
       where: {
         author_id,
+      },
+      include: {
+        author: {
+          select: {
+            name: true,
+            profile_img: true,
+          },
+        },
       },
     });
 
