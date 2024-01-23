@@ -17,6 +17,7 @@ model User {
   phone_number  String?
   profile_img   String?
   updated_at    DateTime      @updatedAt
+  banner_img    String?
   Comment       Comment?
   conversations Conversation?
   posts         Post[]
