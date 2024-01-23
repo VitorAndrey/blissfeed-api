@@ -18,7 +18,7 @@ model User {
   profile_img   String?
   updated_at    DateTime      @updatedAt
   banner_img    String?
-  Comment       Comment?
+  Comment       Comment[]
   conversations Conversation?
   posts         Post[]
 
@@ -63,7 +63,7 @@ model Comment {
   id               String        @id @default(cuid())
   content          String
   likes            Int
-  author_id        String        @unique
+  author_id        String
   created_at       DateTime      @default(now())
   updated_at       DateTime      @updatedAt
   post_id          String?

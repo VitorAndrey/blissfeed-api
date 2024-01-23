@@ -20,12 +20,14 @@ export async function createComment(
   try {
     const createCommentUseCase = makeCreateCommentUseCase();
 
-    await createCommentUseCase.execute({
+    const { comment } = await createCommentUseCase.execute({
       author_id: user_id,
       content,
       content_id,
       content_type,
     });
+
+    return reply.status(201).send({ comment });
   } catch (error) {
     if (error instanceof FailedCreatingData) {
       return reply.status(500).send({ message: error.message });
@@ -33,6 +35,4 @@ export async function createComment(
 
     throw error;
   }
-
-  return reply.status(201).send();
 }
